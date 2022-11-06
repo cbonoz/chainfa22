@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Button, Input, Select, Table } from "antd";
-import { APP_NAME, CHAIN_OPTIONS, ACTIVE_CHAIN_ID } from "../constants";
+import { APP_NAME, CHAIN_OPTIONS, ACTIVE_CHAIN } from "../constants";
 import { getTransactions } from "../util/covalent";
 import { capitalize, col, formatDate } from "../util";
 
@@ -23,7 +23,7 @@ function History(props) {
   const [address, setAddress] = useState(
     "0x73bceb1cd57c711feac4224d062b0f6ff338501e"
   );
-  const [chainId, setChainId] = useState(ACTIVE_CHAIN_ID.id);
+  const [chainId, setChainId] = useState(ACTIVE_CHAIN.id);
   const [loading, setLoading] = useState();
   const [data, setData] = useState();
 
@@ -59,7 +59,7 @@ function History(props) {
       <br />
       <p></p>
       <Select
-        defaultValue={ACTIVE_CHAIN_ID.name}
+        defaultValue={ACTIVE_CHAIN.name}
         style={{ width: 120 }}
         onChange={(v) => setChainId(v)}
       >

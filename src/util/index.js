@@ -1,4 +1,4 @@
-import { ACTIVE_CHAIN_ID, IPFS_BASE_URL } from "../constants";
+import { ACTIVE_CHAIN, IPFS_BASE_URL } from "../constants";
 
 export function addMinutes(numOfMinutes, date = new Date()) {
     date.setMinutes(date.getMinutes() + numOfMinutes);
@@ -30,7 +30,7 @@ export function capitalize(string) {
 }
 
 export const getExplorerUrl = (hash, useTx) =>
-  `${ACTIVE_CHAIN_ID.url}${useTx ? "tx/" : "address/"}${hash}`;
+  `${ACTIVE_CHAIN.url}${useTx ? "tx/" : "address/"}${hash}`;
 
 export const createJsonFile = (signload, fileName) => {
   const st = JSON.stringify(signload);

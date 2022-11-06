@@ -13,7 +13,7 @@ import {
 import { About } from "./components/About";
 
 import logo from "./assets/logo_trans.png";
-import { APP_DESC, APP_NAME } from "./constants";
+import { ACTIVE_CHAIN, APP_DESC, APP_NAME } from "./constants";
 import Lookup from "./components/Lookup";
 // import CreateFreight from "./components/CreateFreight";
 import History from "./components/History";
@@ -41,8 +41,7 @@ function App() {
           <Menu
             theme="light"
             mode="horizontal"
-            defaultSelectedKeys={['/discover']}
-            selectedKeys={[window.location.pathname]}
+            selectedKeys={[pathname]}
           >
             <Menu.Item key={0}>
               <img
@@ -64,8 +63,12 @@ function App() {
             <Menu.Item key={'/about'} onClick={() => navigate("/about")}>
               <QuestionCircleOutlined /> About
             </Menu.Item>
-
+            <span style={{ marginLeft: 'auto' }}>
+            Active network: <b>{ACTIVE_CHAIN.name}</b>
+          </span>
             </Menu>
+      
+        
             </Header>}
           <Content>
             <div className="container">

@@ -28,6 +28,6 @@ export const CHAIN_OPTIONS = {
   // 42: { name: "kovan", url: "https://kovan.etherscan.io/tx/", id: 42 },
   // 4: { name: "rinkeby", url: "https://rinkeby.etherscan.io/tx/", id: 4 },
   
-  export const ACTIVE_CHAIN_ID = CHAIN_OPTIONS["80001"];
+  export const ACTIVE_CHAIN = CHAIN_OPTIONS["80001"];
   
   export const IPFS_BASE_URL = "https://ipfs.moralis.io:2053/ipfs";

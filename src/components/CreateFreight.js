@@ -26,10 +26,7 @@ function CreateFreight(props) {
 
   const isValid = (data) => {
     return (
-      data.name &&
-      data.description &&
-      data.files.length > 0 &&
-      validAddress(data.signerAddress)
+      data.name
     );
   };
   const isValidData = isValid(data);
