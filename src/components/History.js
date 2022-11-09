@@ -4,6 +4,7 @@ import { Button, Input, Select, Table } from "antd";
 import { APP_NAME, CHAIN_OPTIONS, ACTIVE_CHAIN } from "../constants";
 import { getTransactions } from "../util/covalent";
 import { capitalize, col, formatDate } from "../util";
+import logo from '../assets/logo_trans.png'
 
 const { Option } = Select;
 
@@ -47,20 +48,20 @@ function History(props) {
 
   return (
     <div>
+      <img src={logo} className='history-logo' />
       <p>
-        This page can be used to lookup {APP_NAME} transactions against a given
-        address.
+        This page can be used to lookup {APP_NAME} transactions against a given freight identifier
       </p>
       <Input
         value={address}
         onChange={(e) => setAddress(e.target.value)}
-        prefix="Address"
+        prefix="Freight ID:"
       ></Input>
       <br />
       <p></p>
       <Select
         defaultValue={ACTIVE_CHAIN.name}
-        style={{ width: 120 }}
+        style={{ width: 180 }}
         onChange={(v) => setChainId(v)}
       >
         {Object.keys(CHAIN_OPTIONS).map((cId, i) => {
@@ -72,8 +73,8 @@ function History(props) {
         })}
       </Select>
       &nbsp;
-      <Button onClick={fetchHistory} disabled={loading} loading={loading}>
-        View transactions
+      <Button type="primary" onClick={fetchHistory} disabled={loading} loading={loading}>
+        Lookup history
       </Button>
       <br />
       <hr />

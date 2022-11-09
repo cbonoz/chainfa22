@@ -5,6 +5,8 @@ export function addMinutes(numOfMinutes, date = new Date()) {
     return date;
 }
 
+export const abbreviate = s => s ? `${s.substr(0, 6)}**` : ''
+
 
 export const formatDate = (d) => {
     if (!(d instanceof Date)) {

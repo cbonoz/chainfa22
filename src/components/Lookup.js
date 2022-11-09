@@ -1,8 +1,12 @@
+import { useSigner } from '@web3modal/react'
 import React, {useState, useEffect} from 'react'
 import { useParams } from 'react-router'
+import { ACTIVE_CHAIN } from '../constants'
 import { getRecord } from '../contract'
 
 export default function Lookup() {
+  const { data: signer, error: signerError, isLoading } = useSigner({chainId: ACTIVE_CHAIN.id})
+
   const [error, setError] = useState()
   const [loading, setLoading] = useState(false)
   const [parcel, setParcel] = useState()

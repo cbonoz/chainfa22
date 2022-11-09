@@ -1,10 +1,8 @@
 // import { Web3Storage } from "web3.storage";
+import axios from 'axios'
 import { Web3Storage } from "web3.storage/dist/bundle.esm.min.js"; // webpack 4
 
 const API_KEY = process.env.REACT_APP_STORAGE_KEY;
-if (!API_KEY) {
-  alert('REACT_APP_STORAGE_KEY environment variable is required')
-}
 
 function getAccessToken() {
   return API_KEY;
@@ -14,15 +12,23 @@ function makeStorageClient() {
   return new Web3Storage({ token: getAccessToken() });
 }
 
-
-  
-
-export async function uploadFiles(files) {
+export async function uploadFiles(files, metadata) {
+  const newFiles = [...files]
+  if (metadata) {
+    const blob = new Blob([JSON.stringify(metadata)], { type: 'application/json' })
+    const metaFile = new File([blob], 'metadata.json')
+    newFiles.push(metaFile)
+  }
   const client = makeStorageClient();
-  const cid = await client.put(files);
+  const cid = await client.put(newFiles);
   console.log("stored files with cid:", cid);
   return cid;
 }
+
+export const getMetadata = (baseUrl) => {
+  const url = `${baseUrl}/metadata.json`;
+  return axios.get(url);
+};
 
 export async function retrieveFiles(cid) {
   const client = makeStorageClient();

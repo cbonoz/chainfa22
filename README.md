@@ -48,6 +48,22 @@ IPFS: Record keeping and storage. Ability to upload new images of the cargo at d
 ### Contracts
 * Useful link: https://hardhat.org/tutorial/writing-and-compiling-contracts
 
+### Running the app
+
+Define the follow environment variables.
+
+<pre>
+REACT_APP_COVALENT_KEY= // Your covalent API key.
+REACT_APP_STORAGE_KEY=  // Your web3.storage key.
+REACT_APP_ACTIVE_CHAIN_ID= // 80001 or 137 currently for polygon testnet or mainnet (defaults to testnet).
+REACT_APP_WC_ID= // cloud.walletconnect.com app id (defaults to a demo app id).
+</pre>
+
+
+`yarn; yarn start`
+
+Blockfreight should now be running on port 3000.
+
 
 ### Screenshots
 

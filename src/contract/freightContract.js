@@ -1,16 +1,15 @@
 import { ethers } from "ethers";
 import { FREIGHT_CONTRACT } from "./metadata";
 
-const getSigner = async () => {
-    await window.ethereum.enable();
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    const signer = provider.getSigner();
-    return signer;
-};
+// const getSigner = async () => {
+//     await window.ethereum.enable();
+//     const provider = new ethers.providers.Web3Provider(window.ethereum);
+//     const signer = provider.getSigner();
+//     return signer;
+// };
 
 // https://dapp-world.com/smartbook/how-to-use-ethers-with-polygon-k5Hn
-export async function deployContract(title, signerAddress) {
-  const signer = await getSigner();
+export async function deployContract(signer, title) {
 
   //   https://dev.to/yosi/deploy-a-smart-contract-with-ethersjs-28no
 
@@ -21,10 +20,10 @@ export async function deployContract(title, signerAddress) {
     signer
   );
 
-  const validatedAddress = ethers.utils.getAddress(signerAddress);
+  // const validatedAddress = ethers.utils.getAddress(signerAddress);
 
   // Start deployment, returning a promise that resolves to a contract object
-  const contract = await factory.deploy(title, validatedAddress);
+  const contract = await factory.deploy(title)//, validatedAddress);
   await contract.deployed();
   console.log("Contract deployed to address:", contract.address);
   return contract;
@@ -39,15 +38,14 @@ export const validAddress = (addr) => {
   }
 };
 
-export const markContractCompleted = async (contractAddress) => {
+export const markContractCompleted = async (provider, contractAddress) => {
   if (!contractAddress) {
     return {};
   }
-  const signer = await getSigner();
   const freightContract = new ethers.Contract(
     contractAddress,
     FREIGHT_CONTRACT.abi,
-    signer
+    provider.getSigner()
   );
   const result = await freightContract.markCompleted();
   return result;

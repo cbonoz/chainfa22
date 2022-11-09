@@ -12,7 +12,7 @@
 /* .App {
 } */
 
-.qr-image, .qr-logo {
+.qr-image, .qr-logo, .history-logo {
   width: 300px;
 }
 
@@ -32,7 +32,7 @@
   border-radius: 5px;
 }
 
-.qr-logo {
+.history-logo, .qr-logo {
   clear: both;
   margin-top: 50px;
   margin-bottom: 25px;
@@ -43,6 +43,10 @@
   margin: 0 auto;
   min-height: 80vh;
   margin-top: 60px;
+}
+
+.web3-button {
+  margin-top: 12px;;
 }
 
 .success-text {

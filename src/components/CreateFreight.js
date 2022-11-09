@@ -1,14 +1,25 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Input, Row, Col, Radio, Steps, Result } from "antd";
 import { freightUrl, ipfsUrl, getExplorerUrl } from "../util";
-import { EXAMPLE_FORM } from "../constants";
+import { ACTIVE_CHAIN, EXAMPLE_FORM } from "../constants";
 import { FileDrop } from "./FileDrop/FileDrop";
 import { uploadFiles } from "../util/stor";
 import { deployContract, validAddress } from "../contract/freightContract";
+import { useProvider, useSigner } from "@web3modal/react";
 
 const { Step } = Steps;
 
-function CreateFreight(props) {
+function CreateFreight({network}) {
+  const { data: signer, error: signerError, isLoading, refetch } = useSigner()
+
+  useEffect(() => {
+    const networkId = network?.chain?.id
+    console.log('network', networkId)
+    if (networkId) {
+      refetch()
+    }
+  }, [network])
+
   const [data, setData] = useState({ ...EXAMPLE_FORM });
   const [error, setError] = useState();
   const [loading, setLoading] = useState(false);
@@ -19,7 +30,6 @@ function CreateFreight(props) {
   };
 
   const clear = () => {
-    setError(undefined)
     setLoading(false)
     setResult(undefined)
   }
@@ -51,15 +61,13 @@ function CreateFreight(props) {
 
     try {
       // 1) deploy base contract with metadata,
-      const contract = await deployContract(data.name, data.signerAddress);
+      const contract = await deployContract(signer, data.name)
       res["contract"] = contract;
 
-      // 2) Upload files to moralis/ipfs,
+      // 2) Upload files/metadata to ipfs.
       const metadata = await uploadFiles(
         files,
         data.name,
-        data.description,
-        data.signerAddress,
         contract.address
       );
 
@@ -77,6 +85,7 @@ function CreateFreight(props) {
       }
     } catch (e) {
       console.error("error creating freight request", e);
+      setError(e.reason || e.response?.message || e.message)
     } finally {
       clear();
     }
@@ -136,7 +145,7 @@ function CreateFreight(props) {
             )}
             <br />
             <br />
-            {error && <div className="error-text">{error}</div>}
+            {error && <div className="error-text">Error: {error}</div>}
             {result && (<div>
               <Result title="Created freight request!"/>
               <div>
