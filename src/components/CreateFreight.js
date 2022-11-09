@@ -6,6 +6,7 @@ import { FileDrop } from "./FileDrop/FileDrop";
 import { uploadFiles } from "../util/stor";
 import { deployContract, validAddress } from "../contract/freightContract";
 import { useProvider, useSigner } from "@web3modal/react";
+import TextArea from "antd/lib/input/TextArea";
 
 const { Step } = Steps;
 
@@ -30,22 +31,26 @@ function CreateFreight({network}) {
   };
 
   const clear = () => {
-    setLoading(false)
-    setResult(undefined)
   }
 
-  const isValid = (data) => {
-    return (
-      data.name
-    );
+  const getActiveError = (data) => {
+    if (!data.name) {
+      return "Please provide a name for the item.";
+    }
+    
+    if (!signer) {
+      return "Please connect a valid wallet";
+    }
+    return undefined
   };
-  const isValidData = isValid(data);
+
+  const errMessage = getActiveError(data);
 
   const create = async () => {
     setError(undefined);
 
-    if (!isValidData) {
-      setError("Please provide a name, description, valid address, and at least one file.");
+    if (errMessage) {
+      setError(errMessage)
       return;
     }
 
@@ -62,18 +67,17 @@ function CreateFreight({network}) {
     try {
       // 1) deploy base contract with metadata,
       const contract = await deployContract(signer, data.name)
-      res["contract"] = contract;
+      res["contract"] = contract.address;
 
       // 2) Upload files/metadata to ipfs.
-      const metadata = await uploadFiles(
+      const cid = await uploadFiles(
         files,
-        data.name,
-        contract.address
+        res
       );
 
       // 3) return shareable url.
-      res["freightUrl"] = freightUrl(metadata.hash());
-      res["hash"] = metadata.hash();
+      res["freightUrl"] = freightUrl(cid);
+      res["hash"] = cid;
       res["contractUrl"] = getExplorerUrl(contract.address);
 
       // Result rendered after successful doc upload + contract creation.
@@ -87,14 +91,14 @@ function CreateFreight({network}) {
       console.error("error creating freight request", e);
       setError(e.reason || e.response?.message || e.message)
     } finally {
-      clear();
+      setLoading(false)
     }
   };
 
   const getStep = () => {
     if (!!result) {
       return 2;
-    } else if (isValidData) {
+    } else if (errMessage) {
       return 1;
     }
     return 0;
@@ -115,17 +119,19 @@ function CreateFreight({network}) {
               prefix="Name:"
               onChange={(e) => updateData("name", e.target.value)}
             />
+            <br/>
+            <br/>
 
-            {/* <TextArea
-              aria-label="Description"
-              onChange={(e) => updateData("description", e.target.value)}
-              placeholder="Description of the freight request"
-              prefix="Description"
-              value={data.description}
-            /> */}
+            <TextArea
+              aria-label="Notes"
+              onChange={(e) => updateData("notes", e.target.value)}
+              placeholder="Add any additional notes on the parcel"
+              prefix="Notes"
+              value={data.notes}
+            />
 
             {/* TODO: add configurable amount of items */}
-            <h3 className="vertical-margin">Upload image of parcel (Optional):</h3>
+            <h3 className="vertical-margin">Optional: Upload image(s) of parcel</h3>
             <FileDrop
               files={data.files}
               setFiles={(files) => updateData("files", files)}
@@ -135,8 +141,9 @@ function CreateFreight({network}) {
               type="primary"
               className="standard-button"
               onClick={create}
-              disabled={loading} // || !isValidData}
+              disabled={loading}
               loading={loading}
+              size="large"
             >
               Create freight request!
             </Button>
@@ -158,10 +165,10 @@ function CreateFreight({network}) {
                 </a>
                 <br />
                 <p>
-                  Share this url with the potential signer:
+                  Share or append this QR code link to the physical item:
                   <br />
                   <a href={result.freightUrl} target="_blank">
-                    Open freight url
+                    View freight url
                   </a>
                 </p>
               </div>
@@ -184,8 +191,8 @@ function CreateFreight({network}) {
                 description="Deploys a smart contract which will track the parcel"
               />
               <Step
-                title="Use the QR code to monitor and provide updates to each parcel"
-                description="Others can view and provide updates as the parcel is moved"
+                title="Use the generated QR code to track each unique parcel"
+                description="Others can view and provide updates here as the parcel moves"
               />
             </Steps>
           </div>

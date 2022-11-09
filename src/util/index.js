@@ -18,7 +18,8 @@ export const formatDate = (d) => {
 
 
 export const ipfsUrl = (cid, fileName) => {
-    let url = `https://ipfs.io/ipfs/${cid}`;
+    // let url = `https://ipfs.io/ipfs/${cid}`;
+    let url = `${IPFS_BASE_URL}/${cid}`
     if (fileName) {
       return `${url}/${fileName}`;
     }
@@ -42,7 +43,7 @@ export const createJsonFile = (signload, fileName) => {
 };
 
 export const col = (k, render) => ({
-  title: capitalize(k),
+  title: capitalize(k).replaceAll('_', ' '),
   dataIndex: k,
   key: k,
   render,

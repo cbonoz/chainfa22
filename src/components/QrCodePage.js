@@ -4,7 +4,7 @@ import { freightUrl } from '../util'
 
 import logo from '../assets/logo_trans.png'
 import { createQRImage } from '../util/qr'
-import { Spin } from 'antd'
+import { Button, Spin } from 'antd'
 
 export default function QrCodePage() {
   const [imgData, setImgData] = useState()
@@ -43,6 +43,9 @@ export default function QrCodePage() {
       <br/>
       <br/>
       <p><b>Tracking Code</b></p>
+      <br/>
+      <br/>
+      <Button className='standard-btn no-print' onClick={() => window.print()}>Print this page</Button>
 
     </div>
   )

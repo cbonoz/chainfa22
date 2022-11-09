@@ -82,7 +82,7 @@ export function FileDrop({ files, setFiles }) {
         <p>Drag 'n' drop some files here, or click to select files</p>
       </div>
       <br />
-      <b>Files to upload:</b>
+      <b>{files.length === 0 ? 'No files uploaded' : 'Files to upload:'}</b>
       <aside style={thumbsContainer}>{thumbs}</aside>
     </section>
   );

@@ -1,5 +1,5 @@
 export const APP_NAME = 'Blockfreight'
-export const APP_DESC = 'Blockchain product tracking platform for any parcel'
+export const APP_DESC = 'Blockchain product tracking for any parcel'
 
 const hostname = window.location.hostname
 export const IS_LOCAL = hostname.indexOf("localhost") !== -1
@@ -8,6 +8,7 @@ export const COVALENT_KEY = process.env.REACT_APP_COVALENT_KEY; // covalent api 
 
 export const EXAMPLE_FORM = {
     'title': 'Package 12345',
+    'notes': '',
     'files': []
 }
 export const WEB3_PROJECT_ID = process.env.REACT_APP_WC_ID || 'ec17b7971a950170d6c5710eb878ba9b';

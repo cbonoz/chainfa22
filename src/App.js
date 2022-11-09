@@ -67,19 +67,21 @@ function App() {
               <Web3Button />
           </span>
       
-            <span style={{ marginLeft: 'auto' }}>
-              &nbsp;Network: <b>{ACTIVE_CHAIN.name}</b>
-              {account && account.address && isReady && <span>
-              ,&nbsp;Logged in: <b>{abbreviate(account.address)}</b>
-            </span>} 
-
-          </span>
+       
             </Menu>
       
         
             </Header>}
           <Content>
+          <span className="no-print" style={{ right: 0, position: 'absolute' }}>
+              &nbsp;Network: <b>{ACTIVE_CHAIN.name}</b>
+              {account && account.address && isReady && <span>
+              ,&nbsp;Logged in: <b>{abbreviate(account.address)}</b>
+              </span>} 
+              &nbsp;
+            </span>
             <div className="container">
+           
             <Routes>
                 <Route path="/" element={<Home />} />
                 {/* <Route path="/carbon-map" element={<Home/>}/> */}

@@ -11,7 +11,7 @@ const { Option } = Select;
 const COLUMNS = [
   //   col("tx_hash"),
   //   col("from_address"),
-  col("to_address"),
+  col("from_address"),
   col("value"),
   col("gas_spent"),
   col(
@@ -55,7 +55,7 @@ function History(props) {
       <Input
         value={address}
         onChange={(e) => setAddress(e.target.value)}
-        prefix="Freight ID:"
+        prefix="Freight Contract:"
       ></Input>
       <br />
       <p></p>
