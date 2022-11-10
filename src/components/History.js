@@ -22,7 +22,7 @@ const COLUMNS = [
 
 function History(props) {
   const [address, setAddress] = useState(
-    "0x73bceb1cd57c711feac4224d062b0f6ff338501e"
+    "0xF7bA7656365459ed930B01AbB32417c437C6693c"
   );
   const [chainId, setChainId] = useState(ACTIVE_CHAIN.id);
   const [loading, setLoading] = useState();

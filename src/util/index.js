@@ -1,3 +1,4 @@
+import { BigNumber } from "ethers";
 import { ACTIVE_CHAIN, IPFS_BASE_URL } from "../constants";
 
 export function addMinutes(numOfMinutes, date = new Date()) {
@@ -27,6 +28,7 @@ export const ipfsUrl = (cid, fileName) => {
   };
 
 export const freightUrl = (cid) => `${window.location.origin}/i/${cid}`;
+export const qrUrl = (cid) => `${window.location.origin}/qr/${cid}`;
 
 export function capitalize(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
@@ -48,6 +50,16 @@ export const col = (k, render) => ({
   key: k,
   render,
 });
+
+export const humanError = message => {
+  if (message.indexOf('404') !== -1) {
+    message = 'Parcel not found. Do you have the correct url? Otherwise, try creating a new parcel.'
+  } else if (message.indexOf('network changed') !== -1) {
+    message = 'Network changed since page loaded, please refresh.'
+  }
+  return message
+}
+
 
 export function bytesToSize(bytes) {
   var sizes = ["Bytes", "KB", "MB", "GB", "TB"];

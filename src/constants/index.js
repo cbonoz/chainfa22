@@ -35,4 +35,5 @@ export const CHAIN_OPTIONS = {
   
   export const ACTIVE_CHAIN = CHAIN_OPTIONS[process.env.REACT_APP_ACTIVE_CHAIN_ID || "80001"];
   
-  export const IPFS_BASE_URL = "https://ipfs.moralis.io:2053/ipfs";
+  export const IPFS_BASE_URL = "https://ipfs.io/ipfs"
+  // export const IPFS_BASE_URL = "https://ipfs.moralis.io:2053/ipfs";

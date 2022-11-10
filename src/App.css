@@ -27,6 +27,7 @@
 .white {
   background: white;
 }
+
 .boxed {
   padding: 20px;
   border-radius: 5px;
@@ -56,6 +57,11 @@
 .centered {
   margin: 0 auto;
   text-align: center;
+}
+
+.upload-image {
+  width: 250px;
+  margin: 10px;
 }
 
 .error-text {

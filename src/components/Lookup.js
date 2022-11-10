@@ -1,31 +1,35 @@
-import { useSigner } from '@web3modal/react'
-import { Button, Spin } from 'antd'
+import { useSigner, Web3Button } from '@web3modal/react'
+import { Button, Result, Spin } from 'antd'
 import TextArea from 'antd/lib/input/TextArea'
 import React, {useState, useEffect} from 'react'
 import { useParams } from 'react-router'
-import { ACTIVE_CHAIN } from '../constants'
-import { getRecord } from '../contract'
-import { ipfsUrl } from '../util'
+import { EXAMPLE_FORM } from '../constants'
+import { recordParcelEvent } from '../contract/freightContract'
+import { humanError, ipfsUrl } from '../util'
 import { getLocation } from '../util/location'
 import { getMetadata } from '../util/stor'
 import { FileDrop } from './FileDrop/FileDrop'
 
-export default function Lookup() {
-  const { data: signer, error: signerError, isLoading } = useSigner({chainId: ACTIVE_CHAIN.id})
+export default function Lookup({network, account}) {
+  const { data: signer, error: signerError, isLoading, refetch } = useSigner()
+
+  useEffect(() => {
+    const networkId = network?.chain?.id
+    if (networkId) {
+      console.log('network', network)
+      refetch()
+    }
+  }, [network, account])
 
   const [error, setError] = useState()
+  const [result, setResult] = useState()
   const [loading, setLoading] = useState(false)
   const [parcel, setParcel] = useState()
   const [location ,setLocation] = useState()
-  const [data, setData] = useState({files: [], notes: ''})
+  const [data, setData] = useState({...EXAMPLE_FORM})
 
   const params = useParams()
   const {itemId} = params
-
-  function clear() {
-    setLoading(false)
-    setError(undefined)
-  }
 
   async function findLocation() {
     try {
@@ -41,21 +45,32 @@ export default function Lookup() {
   }, [])
 
   async function recordUpdate() {
+    // TODO: add error check for preset location if user denied permission or location not retrievable.
+    setLoading(true)
+  const {contract, contractUrl} = parcel || {}
+    try {
 
+      const res = await recordParcelEvent(signer, contract, data.notes, location?.latitude, location?.longitude)
+      setResult({contractUrl, ...res})
+    } catch (e) {
+      setError(e.message)
+    } finally {
+      setLoading(false)
+    }
   } 
 
   async function getParcelInfo() {
     setError(undefined)
     setLoading(true)
     try {
-
       const res = await getMetadata(ipfsUrl(itemId))
       setParcel(res?.data || {})
     } catch (e) {
       console.error('error fetching record', e)
-      setError(e)
+      let { message } = e
+      setError(humanError(message))
     } finally {
-      clear()
+      setLoading(false)
     }
   }
 
@@ -68,23 +83,32 @@ export default function Lookup() {
   };
 
   if (loading) {
-    return <Spin size="large"/>
+    return <Spin size="large" className='boxed'/>
   }
 
   if (error) {
-    return <div className='error-text'>
+    return <div className='error-text boxed'>
       {error}
     </div>
   }
 
+  const isReady = !loading && network && account?.address;
+
   return (
-    <div>Lookup
-      {parcel && <p>{JSON.stringify(parcel)}</p>}
+    <div className='boxed'>
+      {parcel && <div>
+        <h5 className='success-text'>Found Parcel</h5>
+        <h2>{parcel.title}</h2>
+      </div>}
       {location && JSON.stringify(location)}
-      {parcel?.image && <span>
-        <h3>Original Image:</h3>
-        <img src={parcel.image} />
+      {parcel?.files && <span>
+        <h3>Original Image(s):</h3>
+        {parcel.files.map(({path}, i) => {
+        return <img key={i} src={ipfsUrl(itemId, path)} className='upload-image'/>
+        })}
       </span>}
+      <br/>
+      {parcel?.contractUrl && <a href={parcel.contractUrl} target="_blank">Contract URL</a>}
       <h3 className="vertical-margin">Upload new image of parcel (Optional):</h3>
       <FileDrop
         files={data.files}
@@ -92,18 +116,29 @@ export default function Lookup() {
       />
 
       <TextArea
-              aria-label="Notes"
-              onChange={(e) => updateData("notes", e.target.value)}
-              placeholder="Add any additional comments or updates"
-              prefix="Notes: "
-              value={data.notes}
-            />
+          aria-label="Notes"
+          onChange={(e) => updateData("notes", e.target.value)}
+          placeholder="Add any additional coments or updates"
+          prefix="Notes: "
+          value={data.notes}
+        />
 
         <br/>
         <br/>
-      <Button type="primary" size="large" disabled={loading} loading={loading} onClick={recordUpdate}>
+      {isReady && <Button type="primary" size="large" loading={loading} onClick={recordUpdate}>
         Submit update
-      </Button>
+      </Button>}
+
+      {!isReady && <Web3Button/>}
+      {result && <Result status="success" title="Event recorded!"
+      subTitle={`TX: ${result.hash}`}
+        extra={[
+      <Button type="primary" key="console" onClick={() => {
+        window.open(result.contractUrl, "_blank")
+      }}>
+        View contract
+      </Button>,
+    ]}/>}
 
     </div>
   )

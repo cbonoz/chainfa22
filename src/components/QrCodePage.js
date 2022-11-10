@@ -42,7 +42,7 @@ export default function QrCodePage() {
       {imgData && <img className="qr-image" src={imgData} />}
       <br/>
       <br/>
-      <p><b>Tracking Code</b></p>
+      <p><b>Tracking URL</b><br/><a href={freightUrl(itemId)} target="_blank">{itemId}</a></p>
       <br/>
       <br/>
       <Button className='standard-btn no-print' onClick={() => window.print()}>Print this page</Button>

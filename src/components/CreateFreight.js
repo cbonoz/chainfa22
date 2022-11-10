@@ -1,25 +1,25 @@
 import React, { useEffect, useState } from "react";
 import { Button, Input, Row, Col, Radio, Steps, Result } from "antd";
-import { freightUrl, ipfsUrl, getExplorerUrl } from "../util";
+import { freightUrl, ipfsUrl, getExplorerUrl, qrUrl, humanError, createFundRequest } from "../util";
 import { ACTIVE_CHAIN, EXAMPLE_FORM } from "../constants";
 import { FileDrop } from "./FileDrop/FileDrop";
 import { uploadFiles } from "../util/stor";
 import { deployContract, validAddress } from "../contract/freightContract";
-import { useProvider, useSigner } from "@web3modal/react";
+import { useProvider, useSendTransaction, useSigner } from "@web3modal/react";
 import TextArea from "antd/lib/input/TextArea";
 
 const { Step } = Steps;
 
-function CreateFreight({network}) {
-  const { data: signer, error: signerError, isLoading, refetch } = useSigner()
+function CreateFreight({network, account}) {
+  const { data: signer, error: signerError, isLoading: signerLoading, refetch } = useSigner()
 
   useEffect(() => {
     const networkId = network?.chain?.id
-    console.log('network', networkId)
+    console.log('network', network)
     if (networkId) {
       refetch()
     }
-  }, [network])
+  }, [network, account])
 
   const [data, setData] = useState({ ...EXAMPLE_FORM });
   const [error, setError] = useState();
@@ -30,17 +30,11 @@ function CreateFreight({network}) {
     setData({ ...data, [key]: value });
   };
 
-  const clear = () => {
-  }
-
   const getActiveError = (data) => {
     if (!data.name) {
       return "Please provide a name for the item.";
     }
-    
-    if (!signer) {
-      return "Please connect a valid wallet";
-    }
+
     return undefined
   };
 
@@ -51,6 +45,11 @@ function CreateFreight({network}) {
 
     if (errMessage) {
       setError(errMessage)
+      return;
+    }
+
+    if (!signer) {
+      setError("Please connect a valid wallet");
       return;
     }
 
@@ -66,8 +65,9 @@ function CreateFreight({network}) {
 
     try {
       // 1) deploy base contract with metadata,
-      const contract = await deployContract(signer, data.name)
+      const contract = await deployContract(signer, data.name, data.notes)
       res["contract"] = contract.address;
+      res["contractUrl"] = getExplorerUrl(contract.address);
 
       // 2) Upload files/metadata to ipfs.
       const cid = await uploadFiles(
@@ -77,19 +77,16 @@ function CreateFreight({network}) {
 
       // 3) return shareable url.
       res["freightUrl"] = freightUrl(cid);
+      res["qrUrl"] = qrUrl(cid);
       res["hash"] = cid;
-      res["contractUrl"] = getExplorerUrl(contract.address);
 
       // Result rendered after successful doc upload + contract creation.
       setResult(res);
-      try {
-        // await postPacket(res.freight request);
-      } catch (e) {
-        console.error("error posting freight request", e);
-      }
+
     } catch (e) {
       console.error("error creating freight request", e);
-      setError(e.reason || e.response?.message || e.message)
+      const message = e.reason || e.response?.message || e.message
+      setError(humanError(message))
     } finally {
       setLoading(false)
     }
@@ -98,7 +95,7 @@ function CreateFreight({network}) {
   const getStep = () => {
     if (!!result) {
       return 2;
-    } else if (errMessage) {
+    } else if (!errMessage) {
       return 1;
     }
     return 0;
@@ -141,7 +138,7 @@ function CreateFreight({network}) {
               type="primary"
               className="standard-button"
               onClick={create}
-              disabled={loading}
+              disabled={loading || errMessage}
               loading={loading}
               size="large"
             >
@@ -154,7 +151,8 @@ function CreateFreight({network}) {
             <br />
             {error && <div className="error-text">Error: {error}</div>}
             {result && (<div>
-              <Result title="Created freight request!"/>
+              <Result     status="success"
+ title="Created freight request!"/>
               <div>
                 <a href={ipfsUrl(result.hash)} target="_blank">
                   View metadata
@@ -167,8 +165,8 @@ function CreateFreight({network}) {
                 <p>
                   Share or append this QR code link to the physical item:
                   <br />
-                  <a href={result.freightUrl} target="_blank">
-                    View freight url
+                  <a href={result.qrUrl} target="_blank">
+                    View QR code
                   </a>
                 </p>
               </div>

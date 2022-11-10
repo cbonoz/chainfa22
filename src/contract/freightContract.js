@@ -1,4 +1,4 @@
-import { ethers } from "ethers";
+import { BigNumber, ethers } from "ethers";
 import { FREIGHT_CONTRACT } from "./metadata";
 
 // const getSigner = async () => {
@@ -9,7 +9,7 @@ import { FREIGHT_CONTRACT } from "./metadata";
 // };
 
 // https://dapp-world.com/smartbook/how-to-use-ethers-with-polygon-k5Hn
-export async function deployContract(signer, title) {
+export async function deployContract(signer, title, notes) {
 
   //   https://dev.to/yosi/deploy-a-smart-contract-with-ethersjs-28no
 
@@ -23,7 +23,7 @@ export async function deployContract(signer, title) {
   // const validatedAddress = ethers.utils.getAddress(signerAddress);
 
   // Start deployment, returning a promise that resolves to a contract object
-  const contract = await factory.deploy(title)//, validatedAddress);
+  const contract = await factory.deploy(title, notes, { value: BigNumber.from('100000000000000000') })//, validatedAddress);
   await contract.deployed();
   console.log("Contract deployed to address:", contract.address);
   return contract;
@@ -38,14 +38,30 @@ export const validAddress = (addr) => {
   }
 };
 
-export const markContractCompleted = async (provider, contractAddress) => {
+export const recordParcelEvent = async (signer, contractAddress, notes, lat, lng) => {
   if (!contractAddress) {
-    return {};
+    throw Error('No contract address provided')
   }
   const freightContract = new ethers.Contract(
     contractAddress,
     FREIGHT_CONTRACT.abi,
-    provider.getSigner()
+    signer
+  );
+  const result = await freightContract.recordParcelEvent(notes, lat, lng, {
+    gasLimit: 250000
+});
+  return result;
+};
+
+
+export const markContractCompleted = async (signer, contractAddress) => {
+  if (!contractAddress) {
+    throw Error('No contract address provided')
+  }
+  const freightContract = new ethers.Contract(
+    contractAddress,
+    FREIGHT_CONTRACT.abi,
+    signer
   );
   const result = await freightContract.markCompleted();
   return result;

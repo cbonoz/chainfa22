@@ -9,7 +9,7 @@ import {
   FormOutlined,
 } from "@ant-design/icons";
 import { About } from "./components/About";
-import { ACTIVE_CHAIN, APP_DESC, APP_NAME } from "./constants";
+import { ACTIVE_CHAIN, APP_DESC, APP_NAME, COVALENT_KEY } from "./constants";
 import Lookup from "./components/Lookup";
 // import CreateFreight from "./components/CreateFreight";
 import History from "./components/History";
@@ -57,9 +57,9 @@ function App() {
             <FormOutlined /> Create Parcel
             </Menu.Item>
 
-            <Menu.Item key={'/history'} onClick={() => navigate("/history")}>
-            <FormOutlined /> Freight logs
-            </Menu.Item>
+            {COVALENT_KEY && <Menu.Item key={'/history'} onClick={() => navigate("/history")}>
+              <FormOutlined /> Freight logs
+            </Menu.Item>}
             <Menu.Item key={'/about'} onClick={() => navigate("/about")}>
               <QuestionCircleOutlined /> About
             </Menu.Item>
@@ -87,10 +87,9 @@ function App() {
                 {/* <Route path="/carbon-map" element={<Home/>}/> */}
                 <Route path="/about" element={<About/>}/>
                 <Route path="/history" element={<History />}/>
-                <Route path="/create" element={<CreateFreight network={network}/>}/>
+                <Route path="/create" element={<CreateFreight account={account} network={network}/>}/>
+                <Route path="/i/:itemId" element={<Lookup account={account} network={network} />}/>
                 <Route path="/qr/:itemId" element={<QrCodePage/>}/>
-
-                <Route path="/i/:itemId" element={<Lookup network={network} />}/>
                 <Route path="/about" element={<About/>}/>
 
               </Routes>
