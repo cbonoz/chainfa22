@@ -68,46 +68,46 @@ Blockfreight should now be running on port 3000.
 * Add support for user logins in addition to metamask (or wallet-based) logins.
 
 
-### Screenshots / User flow
+## Screenshots / User flow
 
-#### Home
+### Home
 <img src="./img/home.png" width=800 />
 
-#### Creating a new parcel contract
+### Creating a new parcel contract
 <img src="./img/create.png" width=800 />
 
-#### Connecting wallet for contract deployment
+### Connecting wallet for contract deployment
 <img src="./img/wallet.png" width=800 />
 
-#### Confirm contract creation
+### Confirm contract creation
 <img src="./img/confirm.png" width=800 />
 
 ### Contract created!
 <img src="./img/contract1.png" width=800 />
 
 
-#### IPFS record on contract creation
+### IPFS record on contract creation
 <img src="./img/ipfs.png" width=800 />
 
-#### Contract Metadata 
+### Contract Metadata 
 <img src="./img/metadata.png" width=800 />
 
-#### QR code
+### QR code
 <img src="./img/qr.png" width=800 />
 
-#### Printing QR code
+### Printing QR code
 <img src="./img/print.png" width=800 />
 
-#### Providing a freight contract update
+### Providing a freight contract update
 <img src="./img/update.png" width=800 />
 
-#### Freight update transaction added to contract record
+### Freight update transaction added to contract record
 <img src="./img/contract2.png" width=800 />
 
-#### Freight update event is emitted from the contract
+### Freight update event is emitted from the contract
 <img src="./img/event.png" width=800 />
 
-#### Freight history lookup
+### Freight history lookup
 <img src="./img/history.png" width=800 />
 
 
