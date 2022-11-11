@@ -48,6 +48,8 @@ Every completed freight update via the QR code emits a `FreightEvent` that gets 
 ### Useful links
 * Hardhat: https://hardhat.org/tutorial/writing-and-compiling-contracts
 * Chainlink API parsing: https://docs.chain.link/docs/any-api/get-request/examples/api-array-response/
+* Hackathon: https://chainlinkfall2022.devpost.com/
+* Common supply chain / shipping problems: https://www.bluecart.com/blog/common-shipping-issues
 
 ### Running the app
 
@@ -112,6 +114,9 @@ Blockfreight should now be running on port 3000.
 ### Freight update event is emitted from the contract
 <img src="./img/event.png" width=800 />
 
+### Chainlink api call to reverse geocode latitutude/longitude to address string.
+<img src="./img/code.png" width=800 />
+
 ### Freight history lookup
 <img src="./img/history.png" width=800 />
 
@@ -119,16 +124,20 @@ Blockfreight should now be running on port 3000.
 
 <!--
 
-TODO: research on flexport and determine how to make blockchian compatible.
-
 Demo flow:
 Web Article stating problem (flexport)
+- https://www.flexport.com/
+- https://www.bluecart.com/blog/common-shipping-issues
 Intro solution / website
-Motivation
+Connect wallet
 Create blockfreight
+- Original box image
 - Adds funds to the contract to do chainlink interaction
 Show deployed contract
+- Show QR Code
+- Print screen/preview
 Send a contract update with notes.
+- Damaged box image
 Show contract event emitted from contract and new transaction.
 Show contract history.
 Closing (github+future work)
@@ -149,13 +158,3 @@ IPFS: Record keeping and storage
 
 -->
 
-
-### TODO:
-* QR code system for attaching to parcels.
-* Scan creates a transaction against the parcel's smart contract (immutable and identity-tracking)
-* Persistent storage 
-* Smartcontract deployment for each parcel.
-
-
-### Useful links
-* https://chainlinkfall2022.devpost.com/
