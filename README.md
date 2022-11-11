@@ -38,7 +38,10 @@ Chainlink: Grab information from port and pull into the application. Uses an on-
 IPFS: Record keeping and storage. IPFS is used as the backend for the QR code scanning data lookup and enables theaAbility to upload new images of the cargo at different checkpoints or if the status of the item has changed visibly during transit (ex: item experienced damage). Notes uploaded are also saved to the contract.
 
 Every scan of the QR code emits a 'FreightEvent' that gets indexed and appended to the parcel's contract.
-`emit FreightEvent(_requestId, lastSender, lat, lng, notes, _location);`
+
+<pre>
+    emit FreightEvent(_requestId, lastSender, lat, lng, notes, _location);
+</pre>
 
 
 ### Useful links
