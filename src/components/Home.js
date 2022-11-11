@@ -2,10 +2,13 @@ import React, {useState, } from 'react'
 import { Button,  Spin, Row, Col } from 'antd';
 import { APP_DESC} from '../constants';
 import { useNavigate } from 'react-router';
-import hero from './../assets/logo_3_2.png'
+import logo from './../assets/logo_trans.png'
 import { CheckCircleTwoTone } from '@ant-design/icons';
 
 const CHECKLIST_ITEMS = [
+  'Smart contract powered logistics with image hosting on IPFS',
+  'Track parcels using your Polygon wallet address as your identity',
+  'No user accounts required'
 ];
 
 
@@ -18,12 +21,13 @@ export const Home = () => {
       <Row className='home-section'>
         <Col span={12}>
         <div className='prompt-section'>
+          {/* <img src={logo} className='home-logo'/><br/> */}
           {APP_DESC}
          
       </div>
       {CHECKLIST_ITEMS.map((item, i) => {
               return (
-                <p>
+                <p key={i}>
                   <CheckCircleTwoTone twoToneColor="#00aa00" />
                   &nbsp;
                   {item}

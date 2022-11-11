@@ -100,7 +100,7 @@ export default function Lookup({network, account}) {
         <h5 className='success-text'>Found Parcel</h5>
         <h2>{parcel.title}</h2>
       </div>}
-      {location && JSON.stringify(location)}
+      {/* {location && JSON.stringify(location)} */}
       {parcel?.files && <span>
         <h3>Original Image(s):</h3>
         {parcel.files.map(({path}, i) => {

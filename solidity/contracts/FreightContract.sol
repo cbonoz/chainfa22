@@ -82,7 +82,7 @@ contract FreightContract is ChainlinkClient {
       * https://docs.chain.link/docs/any-api/get-request/examples/api-array-response/
       */
     function fulfill(bytes32 _requestId, string memory _location) public recordChainlinkFulfillment(_requestId) {
-        // Send last recorded values.
+        // Send last recorded values including the matched geolocation.
         emit FreightEvent(_requestId, lastSender, lat, lng, notes, _location);
         location = _location;
     }

@@ -64,6 +64,11 @@
   margin: 10px;
 }
 
+.home-logo {
+  width: 200px;
+  margin-bottom: 15px;
+}
+
 .error-text {
   color: red;
 }
@@ -129,10 +134,12 @@ textarea {
 }
 
 .prompt-section {
-  margin-top: 64px;
-  font-size: 26px;
+  margin-top: 40px;
+  font-size: 32px;
+  margin-right: 24px;
   margin-bottom: 25px;
 }
+
 .home-section {
   font-size: 16px;
 }
