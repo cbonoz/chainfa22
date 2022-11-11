@@ -53,10 +53,10 @@ Every scan of the QR code emits a 'FreightEvent' that gets indexed and appended 
 Define the follow environment variables.
 
 <pre>
-REACT_APP_COVALENT_KEY= // Your covalent API key (optional - needed from history tab)
-REACT_APP_STORAGE_KEY=  // Your web3.storage key.
-REACT_APP_ACTIVE_CHAIN_ID= // 80001 or 137 currently for polygon testnet or mainnet (defaults to testnet).
-REACT_APP_WC_ID= // cloud.walletconnect.com app id (defaults to a demo app id).
+    REACT_APP_COVALENT_KEY= // Your covalent API key (optional - needed from history tab)
+    REACT_APP_STORAGE_KEY=  // Your web3.storage key.
+    REACT_APP_ACTIVE_CHAIN_ID= // 80001 or 137 currently for polygon testnet or mainnet (defaults to testnet).
+    REACT_APP_WC_ID= // cloud.walletconnect.com app id (defaults to a demo app id).
 </pre>
 
 
