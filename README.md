@@ -1,5 +1,6 @@
+<br/>
 <p align='center'>
-    <img src="./img/logo_trans.png" width=400/>
+    <img src="./img/logo_trans.png" width=350/>
 </p>
 
 <br/>
@@ -7,22 +8,22 @@
 Blockfreight
 ---
 
-
 Blockfreight is a blockchain product tracking platform for any parcel.
 
 Generates a unique blockchain-backed QR code that can either be presented or placed on the cargo of interest.
 
-Built for the Chainlink Fall 2022 hackathon.
+Built for the <a href="https://chainlinkfall2022.devpost.com/" target="_blank">Chainlink Fall 2022 hackathon.</a>
 
-Note this project is currently a prototype and would require additional work to be production ready on Polygon mainnet.
 
 ### Motivation
 
 Often excel spreadsheets that track the history of inventory and deliveries are shared via email.
 
-For those vendors using existing SaaS platforms (such as Flexport) much of that data is only held within Flexport, subject to terms and conditions, and can be modified by their team. Other common challenges can include limitation from the non-universal nature of email (emails are private between sender and recipient), delays might not be accurately reported, and products might be lost.
+For those vendors using existing software platforms (such as Flexport), much of the data is only held centrally within those platforms, subject to custom terms and conditions, and modifiable by their internal teams. 
 
-By using Polygon contracts, Blockfreight can:
+Other common challenges outside of platform services can include limitations from the non-universal nature of email (emails are private between sender and recipient), delays might not be accurately reported, and products might be lost.
+
+Using Polygon smart contracts, Blockfreight can:
 1. Enable an immutable, append-only, history of interactions with given parcels.
 2. Create a permission framework (optional) that enforces only certain wallets or user accounts can log events against a given item.
 3. Store the data in a transparent way for all parties, where no single party has to be the custodian of the data log.
@@ -31,13 +32,13 @@ By using Polygon contracts, Blockfreight can:
 
 ### Technologies used
 
-Polygon: Serves as the primary smart contract network for the Blockfreight application. Polygon enables fast and low cost smart contract transactions that make it easy to use Blockfreight in the field without heavy additional costs or time delays.
+**Polygon**: Serves as the primary smart contract network for the Blockfreight application. Polygon enables fast and low cost smart contract transactions that make it easy to use Blockfreight in the field without heavy additional costs or time delays.
 
-Chainlink: Grab information from port and pull into the application. Uses an on-chain API call for reverse geolocation (via https://www.geoapify.com/reverse-geocoding-api) to store the provided lat/lng as a formatted location. For example, a known location of a shipping warehouse can automatically be pulled and saved on the smart contract without having the user type anything.
+**Chainlink**: Grab information from port and pull into the application. Uses an on-chain API call for reverse geolocation (via https://www.geoapify.com/reverse-geocoding-api) to store the provided lat/lng as a formatted location. For example, a known location of a shipping warehouse can automatically be pulled and saved on the smart contract without having the user type anything.
 
-IPFS: Record keeping and storage. IPFS is used as the backend for the QR code scanning data lookup and enables theaAbility to upload new images of the cargo at different checkpoints or if the status of the item has changed visibly during transit (ex: item experienced damage). Notes uploaded are also saved to the contract.
+**IPFS**: Record keeping and storage. IPFS is used as the backend for the QR code scanning data lookup and enables theaAbility to upload new images of the cargo at different checkpoints or if the status of the item has changed visibly during transit (ex: item experienced damage). Notes uploaded are also saved to the contract.
 
-Every scan of the QR code emits a 'FreightEvent' that gets indexed and appended to the parcel's contract.
+Every completed freight update via the QR code emits a `FreightEvent` that gets indexed and appended to the parcel's contract.
 
 <pre>
     emit FreightEvent(_requestId, lastSender, lat, lng, notes, _location);
@@ -64,6 +65,7 @@ Define the follow environment variables.
 
 Blockfreight should now be running on port 3000.
 
+<b>Note this project is currently a prototype and would require additional work to be production ready on Polygon mainnet.</b>
 
 ### Potential future work
 * Add subscription costs for creating different record types, auditing, and organization permissioning.
