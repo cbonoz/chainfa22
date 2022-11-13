@@ -99,6 +99,7 @@ export default function Lookup({network, account}) {
       {parcel && <div>
         <h5 className='success-text'>Found Parcel</h5>
         <h2>{parcel.title}</h2>
+        {parcel.notes && <p>{parcel.notes}</p>}
       </div>}
       {/* {location && JSON.stringify(location)} */}
       {parcel?.files && <span>
