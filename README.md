@@ -14,7 +14,7 @@ Generates a unique blockchain-backed QR code that can either be presented or pla
 
 Built for the <a href="https://chainlinkfall2022.devpost.com/" target="_blank">Chainlink Fall 2022 hackathon.</a>
 
-Live Demo: <a href="blockfreight.surge.sh" target="_blank">Blockfreight</a>
+Live Demo: <a href="https://blockfreight.surge.sh" target="_blank">Blockfreight</a>
 
 Must be on Polygon testnet (Mumbai) for demo.
 
@@ -23,7 +23,7 @@ Must be on Polygon testnet (Mumbai) for demo.
 
 Often excel spreadsheets that track the history of inventory and deliveries are shared via email.
 
-For those vendors using existing software platforms (such as Flexport), much of the data is only held centrally within those platforms, subject to custom terms and conditions, and modifiable by their internal teams. Also need to have a formal app B2B subscription plan.
+For those vendors using existing software platforms (such as Flexport), much of the data is only held centrally within those platforms, subject to custom terms and conditions, and modifiable by their internal teams. Also often need to have a formal app B2B subscription plan.
 
 Other common challenges that occur outside of platforms can include limitations from the non-universal nature of email (emails are private between sender and recipient), delays might not be accurately or consistently reported, and products might be lost.
 
