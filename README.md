@@ -31,7 +31,7 @@ Using Polygon smart contracts, Blockfreight can:
 1. Enable an immutable, append-only, history of interactions with given parcels.
 2. Create a permission framework (optional) that enforces only certain wallets or user accounts can log events against a given item.
 3. Store the data in a transparent way for all parties, where no single party has to be the custodian of the data log.
-4. Perform low cost and fast transactions.
+4. Perform low cost, high volume, and fast transactions.
 
 
 ### Technologies used
