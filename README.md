@@ -14,7 +14,9 @@ Generates a unique blockchain-backed QR code that can either be presented or pla
 
 Built for the <a href="https://chainlinkfall2022.devpost.com/" target="_blank">Chainlink Fall 2022 hackathon.</a>
 
-Live Demo: <a href="https://blockfreight.surge.sh" target="_blank">Blockfreight</a>
+Demo video: https://youtu.be/1f7YgP_u_Qw
+
+Testnet link: <a href="https://blockfreight.surge.sh" target="_blank">Blockfreight</a>
 
 Must be on Polygon testnet (Mumbai) for demo.
 
@@ -40,7 +42,7 @@ Using Polygon smart contracts, Blockfreight can:
 
 **Chainlink**: Grab information from port and pull into the application. Uses an on-chain API call for reverse geolocation (via https://www.geoapify.com/reverse-geocoding-api) to store the provided lat/lng as a formatted location. For example, a known location of a shipping warehouse can automatically be pulled and saved on the smart contract without having the user type anything.
 
-**IPFS**: Record keeping and storage. IPFS is used as the backend for the QR code scanning data lookup and enables theaAbility to upload new images of the cargo at different checkpoints or if the status of the item has changed visibly during transit (ex: item experienced damage). Notes uploaded are also saved to the contract.
+**IPFS**: Record keeping and storage. IPFS is used as the backend for the QR code scanning data lookup and enables uploading new images of the cargo at different checkpoints or if the status of the item has changed visibly during transit (ex: item experienced damage). Notes uploaded are also saved to the contract.
 
 Every completed freight update via the QR code emits a `FreightEvent` that gets indexed and appended to the parcel's contract.
 
