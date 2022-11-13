@@ -14,14 +14,18 @@ Generates a unique blockchain-backed QR code that can either be presented or pla
 
 Built for the <a href="https://chainlinkfall2022.devpost.com/" target="_blank">Chainlink Fall 2022 hackathon.</a>
 
+Live Demo: <a href="blockfreight.surge.sh" target="_blank">Blockfreight</a>
+
+Must be on Polygon testnet (Mumbai) for demo.
+
 
 ### Motivation
 
 Often excel spreadsheets that track the history of inventory and deliveries are shared via email.
 
-For those vendors using existing software platforms (such as Flexport), much of the data is only held centrally within those platforms, subject to custom terms and conditions, and modifiable by their internal teams. 
+For those vendors using existing software platforms (such as Flexport), much of the data is only held centrally within those platforms, subject to custom terms and conditions, and modifiable by their internal teams. Also need to have a formal app B2B subscription plan.
 
-Other common challenges outside of platform services can include limitations from the non-universal nature of email (emails are private between sender and recipient), delays might not be accurately reported, and products might be lost.
+Other common challenges that occur outside of platforms can include limitations from the non-universal nature of email (emails are private between sender and recipient), delays might not be accurately or consistently reported, and products might be lost.
 
 Using Polygon smart contracts, Blockfreight can:
 1. Enable an immutable, append-only, history of interactions with given parcels.
@@ -131,14 +135,15 @@ Web Article stating problem (flexport)
 Intro solution / website
 Connect wallet
 Create blockfreight
-- Original box image
+- Original box image (IPFS/Filecoin for persistent, decentralized storage.)
 - Adds funds to the contract to do chainlink interaction
-Show deployed contract
+Show deployed contract (Polygon, good for high volume packages or shipments)
 - Show QR Code
 - Print screen/preview
 Send a contract update with notes.
 - Damaged box image
 Show contract event emitted from contract and new transaction.
+- Reverse geocoding https://www.geoapify.com/reverse-geocoding-api on Chainlink contract
 Show contract history.
 Closing (github+future work)
 
