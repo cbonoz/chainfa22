@@ -8,7 +8,7 @@
 Blockfreight
 ---
 
-Blockfreight is a blockchain product tracking platform for any parcel.
+Blockfreight is an open blockchain product tracking platform for any parcel.
 
 Generates a unique blockchain-backed QR code that can either be presented or placed on the cargo of interest.
 
@@ -18,8 +18,7 @@ Demo video: https://youtu.be/1f7YgP_u_Qw
 
 Testnet link: <a href="https://blockfreight.surge.sh" target="_blank">Blockfreight</a>
 
-Must be on Polygon testnet (Mumbai) for demo.
-
+Must be connected to Polygon testnet (Mumbai) for link above.
 
 ### Motivation
 
@@ -35,12 +34,14 @@ Using Polygon smart contracts, Blockfreight can:
 3. Store the data in a transparent way for all parties, where no single party has to be the custodian of the data log.
 4. Perform low cost, high volume, and fast transactions.
 
+Once delivered/completed, the owner of the parcel can call the `markCompleted` contract method - the contract will no longer be able to be updated, but the record will be preserved on the Polygon blockchain and IPFS.
+
 
 ### Technologies used
 
 **Polygon**: Serves as the primary smart contract network for the Blockfreight application. Polygon enables fast and low cost smart contract transactions that make it easy to use Blockfreight in the field without heavy additional costs or time delays.
 
-**Chainlink**: Grab information from port and pull into the application. Uses an on-chain API call for reverse geolocation (via https://www.geoapify.com/reverse-geocoding-api) to store the provided lat/lng as a formatted location. For example, a known location of a shipping warehouse can automatically be pulled and saved on the smart contract without having the user type anything.
+**Chainlink**: Grabs information about the checkpoints location at the time of parcel update and pulls into the smart contract. Uses an on-chain API call for reverse geolocation (via https://www.geoapify.com/reverse-geocoding-api) to store the provided lat/lng as a formatted location. For example, a known location of a shipping warehouse can automatically be pulled and saved on the smart contract without having the user type anything.
 
 **IPFS**: Record keeping and storage. IPFS is used as the backend for the QR code scanning data lookup and enables uploading new images of the cargo at different checkpoints or if the status of the item has changed visibly during transit (ex: item experienced damage). Notes uploaded are also saved to the contract.
 
