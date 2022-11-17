@@ -22,11 +22,13 @@ Must be connected to Polygon testnet (Mumbai) for link above.
 
 ### Motivation
 
-Often excel spreadsheets that track the history of inventory and deliveries are shared via email.
+Often excel spreadsheets that track the history of inventory and deliveries are shared via email, or stored in individual documents which can be harder to sync and maintain.
 
-For those vendors using existing software platforms (such as Flexport), much of the data is only held centrally within those platforms, subject to custom terms and conditions, and modifiable by their internal teams. Also often need to have a formal app B2B subscription plan.
+For other vendors using software platforms (such as Flexport), much of the data is held centrally within those platforms, subject to custom terms and conditions, and modifiable by their internal teams. Also often need to have a formal app B2B subscription plan.
 
 Other common challenges that occur outside of platforms can include limitations from the non-universal nature of email (emails are private between sender and recipient), delays might not be accurately or consistently reported, and products might be lost.
+
+### Solution
 
 Using Polygon smart contracts, Blockfreight can:
 1. Enable an immutable, append-only, history of interactions with given parcels.
