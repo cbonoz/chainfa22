@@ -60,7 +60,7 @@ Every completed freight update via the QR code emits a `FreightEvent` that gets 
 
 ### Running the app
 
-Define the follow environment variables.
+Define the following environment variables.
 
 <pre>
     REACT_APP_COVALENT_KEY= // Your covalent API key (optional - needed from history tab)
