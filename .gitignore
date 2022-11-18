@@ -1,6 +1,6 @@
 .dccache
 node_modules
 build
-*.json
+solidity/artifacts
 *.bin
 .DS_Store
